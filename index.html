@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Soja — Informe Escolar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FEFBF6;
+    --cream-2:#FBF3E7;
+    --sage:#D3E6CB;
+    --sage-deep:#8FAE87;
+    --clay:#F6CDB3;
+    --clay-deep:#E39B77;
+    --butter:#FAE9BB;
+    --lilac:#E7DBEF;
+    --lilac-deep:#B9A0CC;
+    --sky:#D3E6ED;
+    --ink:#4A4438;
+    --ink-soft:#8C826F;
+    --line:rgba(74,68,56,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--clay-deep);
+  }
+
+  a{color:inherit;}
+  .pod{display:inline-block;flex-shrink:0;}
+
+  /* ================= MARCOS DE FOTO — RECTANGULARES, ESQUINAS CURVAS ================= */
+  .photo-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+  }
+  .photo-ring{
+    position:absolute;
+    border-radius:38px;
+    border:1.5px dashed var(--clay-deep);
+    opacity:0.45;
+    pointer-events:none;
+  }
+  .photo-circle{
+    position:relative;
+    border-radius:30px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(255,255,255,0.6), transparent 55%),
+      linear-gradient(150deg, var(--sky), var(--sage) 140%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+      0 1px 2px rgba(74,68,56,0.05),
+      0 18px 34px -18px rgba(74,68,56,0.22),
+      0 0 0 6px var(--cream),
+      0 0 0 7px var(--line);
+    flex-shrink:0;
+  }
+  .photo-circle img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .photo-circle .placeholder-msg{
+    text-align:center;
+    padding:1.2rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.64rem;
+    letter-spacing:0.03em;
+    color:var(--ink-soft);
+    max-width:80%;
+  }
+  .photo-circle .placeholder-msg b{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:1.1rem;
+    font-weight:600;
+    color:var(--clay-deep);
+    margin-bottom:0.4rem;
+  }
+
+  figcaption{
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    color:var(--ink-soft);
+    letter-spacing:0.03em;
+    margin-top:0.9rem;
+    text-align:center;
+  }
+  figure{margin:2.2rem 0; display:flex; flex-direction:column; align-items:center;}
+
+  /* ---------- soft scalloped divider ---------- */
+  .row-divider{
+    height:22px;
+    max-width:1040px;
+    margin:0 auto;
+    background-image: radial-gradient(circle at center, var(--sage-deep) 0 3px, transparent 3.5px);
+    background-size:30px 22px;
+    background-repeat:repeat-x;
+    background-position:center;
+    opacity:0.5;
+  }
+
+  /* ============ COVER — GRANDE Y PASTEL ============ */
+  .cover{
+    position:relative;
+    min-height:112vh;
+    background:
+      radial-gradient(circle at 10% 6%, rgba(250,233,187,0.65), transparent 44%),
+      radial-gradient(circle at 90% 14%, rgba(231,219,239,0.55), transparent 42%),
+      radial-gradient(circle at 78% 78%, rgba(211,230,237,0.5), transparent 46%),
+      radial-gradient(circle at 15% 92%, rgba(211,230,203,0.6), transparent 50%),
+      linear-gradient(180deg, var(--cream), var(--cream-2));
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: clamp(2.4rem, 6vw, 4.6rem) clamp(1.4rem, 6vw, 5rem);
+    overflow:hidden;
+  }
+  .cover::before,
+  .cover::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    opacity:0.5;
+  }
+  .cover::before{
+    width:340px; height:340px;
+    top:-120px; right:-90px;
+    background:radial-gradient(circle, var(--butter), transparent 70%);
+  }
+  .cover::after{
+    width:300px; height:300px;
+    bottom:-100px; left:-80px;
+    background:radial-gradient(circle, var(--lilac), transparent 70%);
+  }
+
+  .cover-top{
+    width:100%;
+    max-width:980px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:1.6rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+  }
+
+  .cover-main{
+    flex:1;
+    width:100%;
+    max-width:980px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:1.5rem;
+    padding: 2rem 0;
+  }
+
+  .cover-title{
+    font-size:clamp(4.2rem, 15vw, 9.6rem);
+    line-height:0.88;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .cover-title em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--clay-deep);
+  }
+
+  .cover-subtitle{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(1.15rem, 2.4vw, 1.45rem);
+    max-width:660px;
+    color:var(--ink-soft);
+  }
+
+  .cover-pods{
+    display:flex;
+    gap:0.9rem;
+    align-items:center;
+    margin-top:0.2rem;
+  }
+
+  .cover-photo .photo-circle{width:min(460px,80vw); height:min(320px,55vw);}
+  .cover-photo .photo-ring{width:min(500px,86vw); height:min(360px,60vw);}
+  .cover-photo{margin-top:1.2rem; margin-bottom:0.6rem;}
+
+  /* student info plate */
+  .info-plate{
+    width:100%;
+    max-width:660px;
+    margin-top:1.8rem;
+    background:rgba(255,255,255,0.6);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:1.8rem 2.1rem;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.2rem 2rem;
+    text-align:left;
+    backdrop-filter:blur(2px);
+    box-shadow:0 20px 40px -28px rgba(74,68,56,0.25);
+  }
+  .info-item .label{
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    margin-bottom:0.3rem;
+  }
+  .info-item .value{
+    font-family:'Fraunces', serif;
+    font-size:1.1rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+
+  .cover-bottom{
+    padding-bottom:1.8rem;
+    padding-top:1.8rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    opacity:0.7;
+  }
+
+  /* ============ CONTENT ============ */
+  main{
+    max-width:840px;
+    margin:0 auto;
+    padding: clamp(3rem,7vw,5.5rem) clamp(1.4rem,5vw,1.6rem) 2rem;
+  }
+
+  section.block{
+    padding: 3.4rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  section.block:last-of-type{border-bottom:none;}
+
+  .block-head{
+    display:flex;
+    align-items:baseline;
+    gap:1rem;
+    margin-bottom:1.6rem;
+  }
+  .block-num{
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    color:var(--clay-deep);
+    background:var(--butter);
+    padding:0.3rem 0.6rem;
+    border-radius:20px;
+    flex-shrink:0;
+    transform:translateY(-2px);
+  }
+  .block-head h2{
+    font-size:clamp(1.5rem, 3.4vw, 2rem);
+    line-height:1.15;
+  }
+
+  .block p{
+    color:var(--ink-soft);
+    max-width:66ch;
+    margin: 0 0 1rem;
+  }
+  .block p:last-child{margin-bottom:0;}
+  .block strong{color:var(--ink);}
+
+  ul.pod-list{
+    list-style:none;
+    margin:1.2rem 0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:0.9rem;
+  }
+  ul.pod-list li{
+    display:flex;
+    gap:0.8rem;
+    align-items:flex-start;
+    color:var(--ink-soft);
+    max-width:66ch;
+    background:var(--cream-2);
+    border-radius:14px;
+    padding:0.9rem 1.1rem;
+  }
+  ul.pod-list li .pod{margin-top:0.28rem; color:var(--clay-deep);}
+  ul.pod-list li b{color:var(--ink);font-weight:600;}
+
+  /* stat cards */
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:1rem;
+    margin-top:1.8rem;
+  }
+  .stat-card{
+    background:var(--cream-2);
+    border-radius:22px;
+    padding:1.5rem 1.4rem;
+    border:1px solid var(--line);
+  }
+  .stat-card:nth-child(1){background:linear-gradient(160deg, var(--cream-2), var(--sage) 220%);}
+  .stat-card:nth-child(2){background:linear-gradient(160deg, var(--cream-2), var(--clay) 220%);}
+  .stat-card:nth-child(3){background:linear-gradient(160deg, var(--cream-2), var(--sky) 220%);}
+  .stat-card:nth-child(4){background:linear-gradient(160deg, var(--cream-2), var(--butter) 220%);}
+  .stat-card .num{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:2rem;
+    color:var(--sage-deep);
+    line-height:1;
+  }
+  .stat-card .cap{
+    font-family:'Space Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:0.6rem;
+    line-height:1.5;
+  }
+
+  /* product categories */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1.2rem;
+    margin-top:1.6rem;
+  }
+  .cat{
+    background:var(--cream-2);
+    border-radius:22px;
+    border-top:5px solid var(--sage);
+    padding:1.4rem 1.5rem;
+  }
+  .cat:nth-child(2){border-top-color:var(--clay);}
+  .cat:nth-child(3){border-top-color:var(--sky);}
+  .cat .cat-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    margin-bottom:0.7rem;
+  }
+  .cat ul{
+    margin:0; padding-left:1.1rem;
+    color:var(--ink-soft);
+    font-size:0.94rem;
+    display:flex; flex-direction:column; gap:0.4rem;
+  }
+
+  /* two-face (luces y sombras) */
+  .faces{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin-top:1.8rem;
+  }
+  .face{padding:1.8rem 1.7rem; border-radius:22px;}
+  .face.luz{background:linear-gradient(160deg, var(--cream-2), var(--sage) 200%); border:1px solid var(--line);}
+  .face.sombra{background:linear-gradient(160deg, var(--lilac), var(--clay) 220%);}
+  .face .face-eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:0.64rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-bottom:0.7rem;
+  }
+  .face.luz .face-eyebrow{color:var(--sage-deep);}
+  .face.sombra .face-eyebrow{color:var(--lilac-deep);}
+  .face p{margin:0; font-size:0.95rem; color:var(--ink-soft);}
+
+  @media (max-width:640px){
+    .faces{grid-template-columns:1fr;}
+    .info-plate{grid-template-columns:1fr;}
+  }
+
+  footer{
+    background:var(--cream-2);
+    color:var(--ink-soft);
+    text-align:center;
+    padding:2.8rem 1.4rem 3.2rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  footer .pod{margin-bottom:1rem; color:var(--clay-deep); opacity:0.7;}
+
+  ::selection{background:var(--butter); color:var(--ink);}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="pod-icon" viewBox="0 0 40 20">
+    <path d="M2 10 C2 3, 10 1, 20 1 C30 1, 38 3, 38 10 C38 17, 30 19, 20 19 C10 19, 2 17, 2 10 Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="12" cy="10" r="3.3" fill="currentColor"/>
+    <circle cx="20" cy="10" r="3.3" fill="currentColor"/>
+    <circle cx="28" cy="10" r="3.3" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<!-- ================= PORTADA ================= -->
+<header class="cover">
+  <div class="cover-top">
+    <span>Informe · Ciencias&nbsp;Agropecuarias</span>
+    <span>Argentina</span>
+  </div>
+
+  <div class="cover-main">
+    <span class="eyebrow">Cultivo · Industria · Territorio</span>
+
+    <h1 class="cover-title">La<br><em>Soja</em></h1>
+
+    <p class="cover-subtitle">De la semilla al mercado global: propiedades, usos y las dos caras del cultivo que transformó al campo argentino.</p>
+
+    <div class="cover-pods" style="color:var(--clay-deep)">
+      <svg class="pod" width="32" height="16"><use href="#pod-icon"/></svg>
+      <svg class="pod" width="32" height="16" style="opacity:0.55"><use href="#pod-icon"/></svg>
+      <svg class="pod" width="32" height="16" style="opacity:0.3"><use href="#pod-icon"/></svg>
+    </div>
+
+    <!-- ESPACIO PARA IMAGEN DE PORTADA (rectangular, esquinas curvas) -->
+    <!-- Colocar el archivo en: images/portada.jpg -->
+    <div class="photo-wrap cover-photo">
+      <div class="photo-ring"></div>
+      <div class="photo-circle">
+        <img src="images/portada.jpg" alt="Campo de soja" onerror="this.style.display='none'">
+        <div class="placeholder-msg">
+          <b>Portada</b>
+          images/portada.jpg
+        </div>
+      </div>
+    </div>
+
+    <div class="info-plate">
+      <div class="info-item">
+        <div class="label">Nombre</div>
+        <div class="value">Velozo Gabriel</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Curso</div>
+        <div class="value">4°A</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Profesora</div>
+        <div class="value">Verónica Viola</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Fecha</div>
+        <div class="value">27 de agosto de 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">Glycine max · Leguminosa oleaginosa</div>
+</header>
+
+<div class="row-divider"></div>
+
+<!-- ================= CONTENIDO ================= -->
+<main>
+
+  <!-- 1 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">01</span>
+      <h2>¿Qué es la soja y cuándo se cultiva en Argentina?</h2>
+    </div>
+    <p>La soja es una planta <strong>leguminosa y oleaginosa</strong>. Produce semillas comestibles que crecen, se desarrollan y maduran contenidas dentro de una vaina que las protege, la misma vaina que le da a la planta su aspecto característico durante la cosecha.</p>
+    <p>En Argentina, la siembra se realiza durante los meses de <strong>noviembre, diciembre y enero</strong>, coincidiendo con la primavera y el inicio del verano, ya que el cultivo necesita suelos cálidos y buena disponibilidad de agua para germinar. La cosecha, en cambio, llega meses después, entre marzo y mayo, cuando las vainas ya están completamente maduras.</p>
+
+    <!-- ESPACIO PARA IMAGEN: planta de soja / siembra -->
+    <figure>
+      <div class="photo-wrap">
+        <div class="photo-ring" style="width:min(300px,68vw); height:min(210px,48vw);"></div>
+        <div class="photo-circle" style="width:min(260px,62vw); height:min(180px,42vw);">
+          <img src="images/planta-soja.jpg" alt="Planta de soja con vainas" onerror="this.style.display='none'">
+          <div class="placeholder-msg"><b>Planta de soja</b>images/planta-soja.jpg</div>
+        </div>
+      </div>
+      <figcaption>Fig. 1 — Planta de soja con vainas en desarrollo.</figcaption>
+    </figure>
+  </section>
+
+  <!-- 2 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">02</span>
+      <h2>Propiedades y características</h2>
+    </div>
+    <p>La planta de soja combina un altísimo valor nutricional con una notable capacidad de adaptación, lo que explica su enorme expansión productiva en distintas regiones del mundo. Estas cualidades la convirtieron en uno de los cultivos más rentables y versátiles de la agricultura moderna, tanto para el consumo humano como para la industria.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num">+40%</div>
+        <div class="cap">Contenido proteico — el más alto entre los cultivos alimenticios</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">Rica</div>
+        <div class="cap">En materia grasa: sus semillas contienen aceite apto para uso alimenticio e industrial</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">Alta</div>
+        <div class="cap">Adaptabilidad a distintos climas y tipos de suelo</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">Ideal</div>
+        <div class="cap">Para rotación agrícola con otros cultivos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">03</span>
+      <h2>Productos que contienen soja</h2>
+    </div>
+    <p>A partir de la soja se elabora una enorme variedad de productos, que van desde la alimentación humana hasta la industria pesada. Esta versatilidad es posible porque de la semilla se pueden aprovechar tanto el aceite como la proteína y la fibra, lo que la convierte en materia prima de sectores muy distintos entre sí.</p>
+
+    <div class="cat-grid">
+      <div class="cat">
+        <div class="cat-title">Alimentos y bebidas</div>
+        <ul>
+          <li>Aceite y salsa de soja</li>
+          <li>Harina de soja</li>
+          <li>Milanesas y pastas a base de soja</li>
+          <li>Porotos y brotes de soja</li>
+          <li>Bebidas, jugos, cerveza y leche de soja</li>
+        </ul>
+      </div>
+      <div class="cat">
+        <div class="cat-title">Industria</div>
+        <ul>
+          <li>Medicamentos y antibióticos</li>
+          <li>Materiales de limpieza y cosméticos</li>
+          <li>Pinturas, plásticos y adhesivos</li>
+          <li>Insecticidas, textiles y cartón</li>
+        </ul>
+      </div>
+      <div class="cat">
+        <div class="cat-title">Alimentación animal</div>
+        <ul>
+          <li>Harina de soja como insumo principal</li>
+          <li>Alimento balanceado para mascotas</li>
+          <li>Alimento para peces y aves</li>
+          <li>Alimento para ganado vacuno y porcino</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ESPACIO PARA IMAGEN: productos derivados -->
+    <figure>
+      <div class="photo-wrap">
+        <div class="photo-ring" style="width:min(300px,68vw); height:min(210px,48vw);"></div>
+        <div class="photo-circle" style="width:min(260px,62vw); height:min(180px,42vw);">
+          <img src="images/productos-soja.jpg" alt="Productos derivados de la soja" onerror="this.style.display='none'">
+          <div class="placeholder-msg"><b>Productos</b>images/productos-soja.jpg</div>
+        </div>
+      </div>
+      <figcaption>Fig. 2 — Distintos productos elaborados a partir de la soja.</figcaption>
+    </figure>
+  </section>
+
+  <!-- 4 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">04</span>
+      <h2>El factor que impulsó su desarrollo mundial</h2>
+    </div>
+    <p>El factor determinante fue la <strong>crisis de la anchoveta en Perú</strong>, a comienzos de la década de 1970, cuando la sobrepesca y un fenómeno de El Niño particularmente intenso hicieron colapsar los bancos de este pez frente a las costas peruanas.</p>
+    <p>Hasta ese momento, la harina de anchoveta era el insumo clave para la alimentación proteica de aves y cerdos a nivel mundial. Al colapsar la pesca de este pez, se generó un enorme vacío de demanda en el mercado internacional que la industria necesitaba cubrir con urgencia. La soja emergió como el <strong>sustituto proteico ideal</strong> para la nutrición animal, gracias a su alto contenido de proteínas y a la facilidad para cultivarla a gran escala, lo que impulsó su producción masiva y comercio global en las décadas siguientes.</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">05</span>
+      <h2>Las dos caras de la soja</h2>
+    </div>
+    <p>Se dice que el negocio de la soja genera <strong>"luces y sombras"</strong>: una enorme fuente de riqueza que convive con graves consecuencias sociales y ambientales, dos caras de una misma actividad que conviene analizar por separado para entenderla completa.</p>
+
+    <div class="faces">
+      <div class="face luz">
+        <div class="face-eyebrow">Luces</div>
+        <p>Constituye una enorme fuente de ingresos y divisas para los países del Mercosur, como Argentina y Brasil, posicionándose como la exportación agropecuaria que más incide en el PBI del país y generando trabajo en toda la cadena de valor, desde el campo hasta los puertos de exportación.</p>
+      </div>
+      <div class="face sombra">
+        <div class="face-eyebrow">Sombras</div>
+        <p>Trae consigo graves secuelas sociales, ecológicas y sanitarias, derivadas de las dinámicas del modelo sojero y la expansión del monocultivo, que se detallan a continuación en cada uno de sus principales efectos negativos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">06</span>
+      <h2>Consecuencias negativas</h2>
+    </div>
+
+    <ul class="pod-list">
+      <li>
+        <svg class="pod" width="24" height="12"><use href="#pod-icon"/></svg>
+        <span><b>Desplazamiento campesino e hipotecas:</b> la concentración de tierras por grandes empresas y los mecanismos de endeudamiento forzaron a pequeños productores a perder o vender sus campos.</span>
+      </li>
+      <li>
+        <svg class="pod" width="24" height="12"><use href="#pod-icon"/></svg>
+        <span><b>Caída del empleo rural:</b> al requerir muy poca mano de obra (2 a 5 trabajadores cada 1.000–2.000 hectáreas), el empleo agrícola en Argentina cayó de 1.000.000 a 500.000 personas.</span>
+      </li>
+      <li>
+        <svg class="pod" width="24" height="12"><use href="#pod-icon"/></svg>
+        <span><b>Deforestación y desmonte:</b> pérdida masiva de bosques nativos, como el Gran Chaco o el Cerrado brasileño, para ganar superficie de siembra.</span>
+      </li>
+      <li>
+        <svg class="pod" width="24" height="12"><use href="#pod-icon"/></svg>
+        <span><b>Monocultivo y degradación de suelos:</b> reemplaza la diversidad agrícola y la ganadería, afectando la biodiversidad y desgastando los nutrientes de la tierra.</span>
+      </li>
+      <li>
+        <svg class="pod" width="24" height="12"><use href="#pod-icon"/></svg>
+        <span><b>Agroquímicos y soja transgénica:</b> más del 95% de la soja en Argentina es transgénica y su cultivo exige el uso masivo de herbicidas tóxicos, vinculados a problemas de salud en poblaciones rurales.</span>
+      </li>
+      <li>
+        <svg class="pod" width="24" height="12"><use href="#pod-icon"/></svg>
+        <span><b>Dependencia económica:</b> depender de la exportación de un solo producto expone al país a crisis si caen los precios internacionales o hay malas cosechas.</span>
+      </li>
+    </ul>
+
+    <!-- ESPACIO PARA IMAGEN: consecuencias / deforestación -->
+    <figure>
+      <div class="photo-wrap">
+        <div class="photo-ring" style="width:min(300px,68vw); height:min(210px,48vw);"></div>
+        <div class="photo-circle" style="width:min(260px,62vw); height:min(180px,42vw);">
+          <img src="images/consecuencias.jpg" alt="Consecuencias del monocultivo de soja" onerror="this.style.display='none'">
+          <div class="placeholder-msg"><b>Consecuencias</b>images/consecuencias.jpg</div>
+        </div>
+      </div>
+      <figcaption>Fig. 3 — Impacto territorial de la expansión sojera.</figcaption>
+    </figure>
+  </section>
+
+</main>
+
+<footer>
+  <svg class="pod" width="28" height="14"><use href="#pod-icon"/></svg>
+  <div>Velozo Gabriel · 4°A · Prof. Verónica Viola · 27/08/2026</div>
+</footer>
+
+</body>
+</html>
